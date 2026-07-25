@@ -1,0 +1,234 @@
+.page-wrapper {
+    min-height: 100vh;
+    padding: 32px 16px;
+}
+
+.app-container {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.page-title {
+    font-weight: 800;
+    font-size: 2.1rem;
+    margin: 0;
+    color: #1a1a2e;
+}
+
+// Toolbar row: search + filter + two equal buttons
+.toolbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+
+    @media (max-width: 700px) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.toolbar-search,
+.toolbar-filter {
+    height: 42px;
+}
+
+.toolbar-btn {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 600;
+    white-space: nowrap;
+    border-radius: 6px;
+}
+
+.btn-icon {
+    font-size: 0.95em;
+}
+
+// Categories button — distinct, more "interesting" than a plain outline button
+.btn-categories {
+    background: linear-gradient(135deg, #ff9f43, #ee5253);
+    color: white;
+    border: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(238, 82, 83, 0.35);
+        color: white;
+    }
+}
+
+// Task cards
+.task-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: white;
+    border-radius: 10px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+    border: 1px solid #e0e0e0;
+    border-left: 4px solid #2990fd;
+
+    &:hover {
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+        transform: translateY(-1px);
+    }
+
+    &.completed {
+        border-left-color: #a0a0a0;
+        opacity: 0.7;
+
+        .task-title {
+            text-decoration: line-through;
+        }
+    }
+}
+
+.check-circle {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #2990fd;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 0;
+    margin-top: 2px;
+
+    &.checked {
+        background: #2990fd;
+    }
+}
+
+.task-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.task-title {
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 2px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.task-description {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 6px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.task-meta {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    font-size: 0.72rem;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-weight: 500;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.tag-category {
+    background: #e8f0fe;
+    color: #2990fd;
+    border: 1px solid #2990fd;
+}
+
+.tag-date {
+    background: #fff4e5;
+    color: #ee5253;
+    border: 1px solid #ee5253;
+}
+
+.task-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    transition: ease, background 0.15s ease;
+
+    &:hover {
+        background: #f0f0f0;
+    }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #777;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.empty-icon {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+}
+
+
+.btn-primary.toolbar-btn {
+    background: linear-gradient(135deg, #2990fd, #6c5ce7);
+    border: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(108, 92, 231, 0.35);
+        color: white;
+    }
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #eee;
+    border: 1px solid #666;
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+        background: #fde3e3;
+        border-color: #ee5253;
+        color: #ee5253;
+    }
+}

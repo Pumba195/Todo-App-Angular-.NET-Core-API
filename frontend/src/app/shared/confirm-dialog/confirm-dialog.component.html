@@ -1,0 +1,12 @@
+<div class="modal-backdrop-custom" (click)="onCancel()">
+  <div class="modal-card card shadow" (click)="$event.stopPropagation()">
+    <div class="card-body text-center p-4">
+      <h5 class="fw-bold mb-2">{{ title }}</h5>
+      <p class="text-muted mb-4">{{ message }}</p>
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-secondary flex-fill" (click)="onCancel()">Cancel</button>
+        <button class="btn btn-danger flex-fill" (click)="onConfirm()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

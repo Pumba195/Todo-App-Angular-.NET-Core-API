@@ -1,7 +1,7 @@
 .modal-backdrop-custom {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,11 +9,21 @@
 }
 
 .modal-card {
-  background: white;
-  border-radius: 8px;
-  padding: 24px;
   width: 100%;
   max-width: 400px;
   max-height: 90vh;
   overflow-y: auto;
+}
+
+.category-dot {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  border-radius: 50%;
+  background: #2990fd;
+}
+
+.category-name {
+  min-width: 0;
+  overflow-wrap: break-word;
 }

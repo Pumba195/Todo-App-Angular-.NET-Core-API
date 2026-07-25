@@ -1,27 +1,59 @@
 <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
   <div class="card shadow-sm" style="width: 100%; max-width: 400px;">
     <div class="card-body p-4">
-      <h3 class="text-center mb-4">Register</h3>
+      <h3 class="text-center mb-4 title">Register</h3>
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="mb-3">
           <label class="form-label">Username</label>
-          <input type="text" class="form-control" formControlName="username">
+          <input type="text" class="form-control" formControlName="username" name="username" autocomplete="username"
+            [class.is-invalid]="form.get('username')?.touched && form.get('username')?.invalid">
+          @if (form.get('username')?.touched && form.get('username')?.errors?.['required']) {
+          <div class="text-danger small mt-1">
+            Username is required.
+          </div>
+          }
         </div>
 
         <div class="mb-3">
           <label class="form-label">Email</label>
-          <input type="email" class="form-control" formControlName="email">
+          <input type="email" class="form-control"
+            [class.is-invalid]="form.get('email')?.touched && form.get('email')?.invalid" formControlName="email"
+            name="email" autocomplete="email">
+          @if (form.get('email')?.touched && form.get('email')?.errors?.['required']) {
+          <div class="text-danger small mt-1">
+            Email is required.
+          </div>
+          }
+          @if (form.get('email')?.touched && form.get('email')?.errors?.['email']) {
+          <div class="text-danger small mt-1">
+            Please enter a valid email address.
+          </div>
+          }
         </div>
 
         <div class="mb-3">
           <label class="form-label">Password</label>
-          <input type="password" class="form-control" formControlName="password">
+          <input type="password" class="form-control" formControlName="password" name="password"
+            autocomplete="new-password"
+            [class.is-invalid]="form.get('password')?.touched && form.get('password')?.invalid">
+          @if (form.get('password')?.touched && form.get('password')?.errors?.['required']) {
+          <div class="text-danger small mt-1">
+            Password is required.
+          </div>
+          }
+          @if (form.get('password')?.touched && form.get('password')?.errors?.['minlength']) {
+          <div class="text-danger small mt-1">
+            Password must be at least 6 characters.
+          </div>
+          }
         </div>
 
-        <div class="alert alert-danger py-2" *ngIf="errorMessage">
+        @if (errorMessage) {
+        <div class="alert alert-danger py-2">
           {{ errorMessage }}
         </div>
+        }
 
         <button type="submit" class="btn btn-primary w-100" [disabled]="form.invalid || isLoading">
           {{ isLoading ? 'Registering...' : 'Register' }}

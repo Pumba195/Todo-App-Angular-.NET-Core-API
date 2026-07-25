@@ -2,6 +2,7 @@
 using TodoApp.Domain.Entities;
 using TodoApp.DTOs;
 using TodoApp.Services.Interfaces;
+using TodoApp.Services.Exceptions;
 
 namespace TodoApp.Services;
 
@@ -22,6 +23,10 @@ public class CategoryService : ICategoryService
 
     public async Task<CategoryDto> CreateAsync(int userId, CreateCategoryDto dto)
     {
+        var existing = await _categoryRepository.GetByUserIdAsync(userId);
+        if (existing.Any(c => c.Name.Equals(dto.Name, StringComparison.OrdinalIgnoreCase)))
+            throw new AuthException("Category already exists.");
+
         var category = new Category { Name = dto.Name, UserId = userId };
         await _categoryRepository.AddAsync(category);
         await _categoryRepository.SaveChangesAsync();

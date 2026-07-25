@@ -8,11 +8,12 @@ import { Router } from '@angular/router';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { CategoryManagerComponent } from '../category-manager/category-manager.component';
 import { debounceTime, Subject } from 'rxjs';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, TaskFormComponent, CategoryManagerComponent],
+  imports: [CommonModule, FormsModule, TaskFormComponent, CategoryManagerComponent, ConfirmDialogComponent],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
@@ -31,6 +32,9 @@ export class TaskListComponent implements OnInit {
   showTaskForm = false;
   showCategoryManager = false;
   editingTask: TaskDto | null = null;
+
+  showDeleteConfirm = false;
+  taskToDelete: number | null = null;
 
   private searchSubject = new Subject<string>();
 
@@ -112,12 +116,10 @@ export class TaskListComponent implements OnInit {
 
   onCategoryManagerClosed(refresh: boolean): void {
     this.showCategoryManager = false;
-    if (refresh) this.loadCategories();
-  }
-
-  deleteTask(id: number): void {
-    if (!confirm('Delete this task?')) return;
-    this.taskService.delete(id).subscribe(() => this.loadTasks());
+    if (refresh) {
+      this.loadCategories();
+      this.loadTasks();
+    }
   }
 
   logout(): void {
@@ -127,5 +129,22 @@ export class TaskListComponent implements OnInit {
 
   get pageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  requestDeleteTask(id: number): void {
+    this.taskToDelete = id;
+    this.showDeleteConfirm = true;
+  }
+
+  onDeleteConfirmed(confirmed: boolean): void {
+    this.showDeleteConfirm = false;
+    if (confirmed && this.taskToDelete) {
+      this.taskService.delete(this.taskToDelete).subscribe(() => this.loadTasks());
+    }
+    this.taskToDelete = null;
+  }
+
+  trackByTaskId(index: number, task: TaskDto): number {
+    return task.id;
   }
 }

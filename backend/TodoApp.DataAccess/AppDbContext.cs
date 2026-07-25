@@ -15,15 +15,12 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // A task's Category relationship: if a category is deleted,
-        // don't delete the tasks — just set CategoryId to null
         modelBuilder.Entity<TaskItem>()
             .HasOne(t => t.Category)
             .WithMany(c => c.Tasks)
             .HasForeignKey(t => t.CategoryId)
             .OnDelete(DeleteBehavior.SetNull);
 
-        // A task's User relationship: if a user is deleted, delete their tasks too
         modelBuilder.Entity<TaskItem>()
             .HasOne(t => t.User)
             .WithMany(u => u.Tasks)
@@ -36,8 +33,16 @@ public class AppDbContext : DbContext
             .HasForeignKey(c => c.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<Category>()
+            .HasIndex(c => new { c.UserId, c.Name })
+            .IsUnique();
+
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Username)
+            .IsUnique();
+
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Email)
             .IsUnique();
     }
 }

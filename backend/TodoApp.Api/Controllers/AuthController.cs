@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TodoApp.DTOs;
 using TodoApp.Services.Interfaces;
+using TodoApp.Services.Exceptions;
 
 namespace TodoApp.Api.Controllers;
 
@@ -18,9 +19,15 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDto dto)
     {
-        var result = await _authService.RegisterAsync(dto);
-        if (result == null) return BadRequest("Username already exists.");
-        return Ok(result);
+        try
+        {
+            var result = await _authService.RegisterAsync(dto);
+            return Ok(result);
+        }
+        catch (AuthException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPost("login")]

@@ -17,7 +17,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    // Allows Swagger UI to send the JWT token with requests (the "Authorize" button)
+    // Allows Swagger UI to send the JWT token with requests
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -94,6 +94,16 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseExceptionHandler(errApp =>
+{
+    errApp.Run(async context =>
+    {
+        context.Response.StatusCode = 500;
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsync("{\"message\":\"An unexpected error occurred.\"}");
+    });
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -104,8 +114,8 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowAngularApp");
 
-app.UseAuthentication(); // WHO are you? (must come first)
-app.UseAuthorization();  // Are you ALLOWED to do this?
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

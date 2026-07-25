@@ -3,6 +3,7 @@ using TodoApp.DataAccess.Interfaces;
 using TodoApp.Domain.Entities;
 using TodoApp.DTOs;
 using TodoApp.Services.Interfaces;
+using TodoApp.Services.Exceptions;
 
 namespace TodoApp.Services;
 
@@ -20,8 +21,13 @@ public class AuthService : IAuthService
 
     public async Task<AuthResponseDto?> RegisterAsync(RegisterDto dto)
     {
-        var existing = await _userRepository.GetByUsernameAsync(dto.Username);
-        if (existing != null) return null; // username taken
+        var existingUsername = await _userRepository.GetByUsernameAsync(dto.Username);
+        if (existingUsername != null)
+            throw new AuthException("Username already exists.");
+
+        var existingEmail = await _userRepository.GetByEmailAsync(dto.Email);
+        if (existingEmail != null)
+            throw new AuthException("Email already registered.");
 
         var user = new User { Username = dto.Username, Email = dto.Email };
         user.PasswordHash = _passwordHasher.HashPassword(user, dto.Password);
