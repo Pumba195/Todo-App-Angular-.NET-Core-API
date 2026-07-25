@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="card shadow-sm" style="width: 100%; max-width: 400px;">
+    <div class="card-body p-4">
+      <h3 class="text-center mb-4">Log In</h3>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input type="text" class="form-control" formControlName="username">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" formControlName="password">
+        </div>
+
+        <div class="alert alert-danger py-2" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="form.invalid || isLoading">
+          {{ isLoading ? 'Logging in...' : 'Log In' }}
+        </button>
+      </form>
+
+      <p class="text-center mt-3 mb-0">
+        Don't have an account? <a routerLink="/login/register">Register</a>
+      </p>
+    </div>
+  </div>
+</div>

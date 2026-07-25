@@ -1,0 +1,29 @@
+<div class="modal-backdrop-custom" (click)="close()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <h4>Manage Categories</h4>
+
+    <div class="d-flex gap-2 mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="New category name"
+        [(ngModel)]="newCategoryName"
+        (keyup.enter)="addCategory()">
+      <button class="btn btn-primary" (click)="addCategory()">Add</button>
+    </div>
+
+    <ul class="list-group mb-3">
+      <li *ngFor="let cat of categories" class="list-group-item d-flex justify-content-between align-items-center">
+        {{ cat.name }}
+        <button class="btn btn-sm btn-outline-danger" (click)="deleteCategory(cat.id)">Delete</button>
+      </li>
+      <li *ngIf="categories.length === 0" class="list-group-item text-muted text-center">
+        No categories yet.
+      </li>
+    </ul>
+
+    <div class="text-end">
+      <button class="btn btn-outline-secondary" (click)="close()">Close</button>
+    </div>
+  </div>
+</div>
