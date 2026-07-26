@@ -69,15 +69,15 @@
     <nav>
       <ul class="pagination justify-content-center">
         <li class="page-item" [class.disabled]="pageNumber === 1">
-          <a class="page-link" (click)="goToPage(pageNumber - 1)" style="cursor: pointer;">←</a>
+          <a class="page-link" (click)="goToPage(pageNumber - 1)">←</a>
         </li>
         @for (page of pageNumbers; track page) {
         <li class="page-item" [class.active]="page === pageNumber">
-          <a class="page-link" (click)="goToPage(page)" style="cursor: pointer;">{{ page }}</a>
+          <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
         </li>
         }
         <li class="page-item" [class.disabled]="pageNumber === totalPages">
-          <a class="page-link" (click)="goToPage(pageNumber + 1)" style="cursor: pointer;">→</a>
+          <a class="page-link" (click)="goToPage(pageNumber + 1)">→</a>
         </li>
       </ul>
     </nav>

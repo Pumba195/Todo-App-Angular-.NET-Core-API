@@ -15,7 +15,27 @@
     color: #1a1a2e;
 }
 
-// Toolbar row: search + filter + two equal buttons
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #eee;
+    border: 1px solid #666;
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+        background: #fde3e3;
+        border-color: #ee5253;
+        color: #ee5253;
+    }
+}
+
 .toolbar {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -46,7 +66,18 @@
     font-size: 0.95em;
 }
 
-// Categories button — distinct, more "interesting" than a plain outline button
+.btn-primary.toolbar-btn {
+    background: linear-gradient(135deg, #2990fd, #6c5ce7);
+    border: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(108, 92, 231, 0.35);
+        color: white;
+    }
+}
+
 .btn-categories {
     background: linear-gradient(135deg, #ff9f43, #ee5253);
     color: white;
@@ -60,7 +91,6 @@
     }
 }
 
-// Task cards
 .task-cards {
     display: flex;
     flex-direction: column;
@@ -199,36 +229,6 @@
     margin-bottom: 8px;
 }
 
-
-.btn-primary.toolbar-btn {
-    background: linear-gradient(135deg, #2990fd, #6c5ce7);
-    border: none;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-
-    &:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 10px rgba(108, 92, 231, 0.35);
-        color: white;
-    }
-}
-
-.logout-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: #eee;
-    border: 1px solid #666;
-    color: #666;
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding: 7px 14px;
-    border-radius: 20px;
+.page-link{
     cursor: pointer;
-    transition: all 0.15s ease;
-
-    &:hover {
-        background: #fde3e3;
-        border-color: #ee5253;
-        color: #ee5253;
-    }
 }

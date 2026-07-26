@@ -44,7 +44,6 @@ export class TaskListComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {
-    // Debounce search input so we don't hit the API on every keystroke
     this.searchSubject.pipe(debounceTime(400)).subscribe(() => {
       this.pageNumber = 1;
       this.loadTasks();
